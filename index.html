@@ -1,118 +1,530 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#efe7d2">
-  <meta name="description" content="Mercado Cia do Lar, na Vila A, em Foz do Iguaçu. Consulte horários, telefone, Instagram e como chegar.">
-  <title>Mercado Cia do Lar — Vila A, Foz do Iguaçu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Playfair+Display:ital,wght@0,600;1,600;1,700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0D3C1F" />
+  <meta name="description" content="Mercado Cia do Lar, na Vila A, em Foz do Iguaçu. Horários, telefone, Instagram e localização." />
+  <title>Mercado Cia do Lar — Vila A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-950: #0D3C1F;
+      --green-700: #3D7F61;
+      --green-200: #D4E8DC;
+      --cream: #FAF9F6;
+      --paper: #F5F5F3;
+      --coral: #F69066;
+      --ink: #173324;
+      --muted: #607568;
+      --white: #FFFFFF;
+      --line: rgba(13, 60, 31, .12);
+      --shadow: 0 18px 55px rgba(13, 60, 31, .10);
+      --radius: 18px;
+      --display: "Playfair Display", serif;
+      --body: "Geist", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: var(--body);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .container { width: min(1200px, calc(100% - 40px)); margin: 0 auto; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: 12px; font-weight: 600; color: var(--green-700); }
+    .section { padding: 104px 0; }
+    .section-head { max-width: 760px; margin: 0 auto 52px; text-align: center; }
+    .section-head h2, .display {
+      margin: 16px 0 0;
+      color: var(--green-950);
+      font-family: var(--display);
+      font-weight: 600;
+      letter-spacing: -.035em;
+      line-height: 1.06;
+    }
+    .section-head h2 { font-size: clamp(38px, 5vw, 64px); }
+    .section-head p { color: var(--muted); font-size: 18px; line-height: 1.7; }
+
+    .topbar {
+      padding: 10px 0;
+      color: var(--green-200);
+      background: var(--green-950);
+      font-size: 12px;
+    }
+    .topbar .container { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .status { display: inline-flex; align-items: center; gap: 8px; }
+    .status::before { content: ""; width: 7px; height: 7px; border-radius: 999px; background: var(--coral); box-shadow: 0 0 0 5px rgba(246, 144, 102, .12); }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(250, 249, 246, .9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(13, 60, 31, .08);
+    }
+    .nav { height: 78px; display: flex; align-items: center; gap: 34px; }
+    .brand { margin-right: auto; font-family: var(--display); color: var(--green-950); font-size: 24px; font-weight: 700; letter-spacing: -.025em; }
+    .brand span { color: var(--coral); }
+    .nav-links { display: flex; gap: 26px; font-size: 14px; color: var(--muted); }
+    .nav-links a:hover { color: var(--green-950); }
+    .btn {
+      min-height: 48px;
+      padding: 0 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      transition: transform .2s ease, opacity .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn.primary { color: var(--white); background: var(--green-950); box-shadow: 0 4px 14px rgba(13, 60, 31, .18); }
+    .btn.secondary { color: var(--green-950); background: transparent; border-color: rgba(13, 60, 31, .22); }
+    .btn.coral { color: var(--green-950); background: var(--coral); }
+    .mobile-toggle { display: none; border: 0; background: transparent; padding: 10px; color: var(--green-950); }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 16% 10%, rgba(61, 127, 97, .12), transparent 34%),
+        radial-gradient(circle at 88% 0%, rgba(246, 144, 102, .14), transparent 28%),
+        var(--cream);
+    }
+    .hero-grid {
+      min-height: 720px;
+      padding: 72px 0 86px;
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .hero h1 {
+      margin: 24px 0 24px;
+      max-width: 650px;
+      color: var(--green-950);
+      font-family: var(--display);
+      font-size: clamp(54px, 6vw, 88px);
+      font-weight: 600;
+      line-height: .98;
+      letter-spacing: -.052em;
+    }
+    .hero h1 em { color: var(--green-700); font-style: normal; }
+    .hero-copy > p { max-width: 610px; margin: 0; color: var(--muted); font-size: 19px; line-height: 1.72; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    .hero-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 50px; }
+    .meta-card { padding-top: 18px; border-top: 1px solid var(--line); }
+    .meta-card strong { display: block; color: var(--green-950); font-family: var(--display); font-size: 26px; }
+    .meta-card span { color: var(--muted); font-size: 13px; }
+    .hero-photo {
+      position: relative;
+      min-height: 570px;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+    .hero-photo img { height: 100%; min-height: 570px; object-fit: cover; }
+    .hero-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 52%, rgba(13,60,31,.52)); }
+    .photo-label {
+      position: absolute;
+      z-index: 2;
+      left: 26px;
+      right: 26px;
+      bottom: 24px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      color: white;
+    }
+    .photo-label strong { font-family: var(--display); font-size: 28px; }
+    .photo-label span { font-size: 12px; text-transform: uppercase; letter-spacing: .13em; }
+
+    .trust-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: white; }
+    .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .trust-item { padding: 30px 28px; border-right: 1px solid var(--line); }
+    .trust-item:last-child { border-right: 0; }
+    .trust-item b { display: block; color: var(--green-950); font-family: var(--display); font-size: 22px; margin-bottom: 8px; }
+    .trust-item p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+    .routine { background: var(--paper); }
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .feature-card {
+      min-height: 300px;
+      padding: 34px;
+      display: flex;
+      flex-direction: column;
+      border-radius: var(--radius);
+      background: white;
+      box-shadow: 0 4px 24px rgba(13,60,31,.06);
+      transition: transform .3s ease;
+    }
+    .feature-card:hover { transform: translateY(-5px); }
+    .feature-card .number { margin-bottom: auto; color: var(--green-700); font-family: var(--display); font-size: 50px; line-height: 1; }
+    .feature-card h3 { margin: 48px 0 10px; color: var(--green-950); font-family: var(--display); font-size: 25px; }
+    .feature-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .categories { background: white; }
+    .bento { display: grid; grid-template-columns: 1.15fr .85fr .85fr; grid-auto-rows: 270px; gap: 18px; }
+    .tile { overflow: hidden; border-radius: var(--radius); position: relative; }
+    .tile.photo-large { grid-row: span 2; }
+    .tile img { width: 100%; height: 100%; object-fit: cover; }
+    .tile .overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 48%, rgba(13,60,31,.78)); }
+    .tile-copy { position: absolute; z-index: 2; left: 26px; right: 26px; bottom: 24px; color: white; }
+    .tile-copy small { text-transform: uppercase; letter-spacing: .14em; }
+    .tile-copy h3 { margin: 8px 0 0; font-family: var(--display); font-size: 32px; line-height: 1.05; }
+    .tile.text { padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+    .tile.green { background: var(--green-700); color: white; }
+    .tile.dark { background: var(--green-950); color: white; }
+    .tile.coral { background: var(--coral); color: var(--green-950); }
+    .tile.text small { text-transform: uppercase; letter-spacing: .14em; opacity: .72; }
+    .tile.text h3 { margin: 0; max-width: 290px; font-family: var(--display); font-size: 32px; line-height: 1.08; }
+    .tile.text p { margin: 12px 0 0; max-width: 310px; line-height: 1.6; opacity: .8; }
+
+    .hours { background: var(--green-950); color: white; }
+    .hours-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
+    .hours .eyebrow { color: var(--coral); }
+    .hours h2 { margin: 18px 0 18px; color: white; font-family: var(--display); font-size: clamp(42px, 5vw, 66px); line-height: 1.05; letter-spacing: -.035em; }
+    .hours-intro { color: #B8D4C4; font-size: 17px; line-height: 1.7; }
+    .open-card { margin-top: 36px; padding: 24px; border-radius: 14px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); }
+    .open-card strong { display: block; color: var(--coral); font-family: var(--display); font-size: 28px; }
+    .open-card span { color: #B8D4C4; }
+    .schedule { border-top: 1px solid rgba(255,255,255,.14); }
+    .schedule-row { display: flex; justify-content: space-between; gap: 20px; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,.14); }
+    .schedule-row span { color: #D4E8DC; }
+    .schedule-row strong { font-weight: 500; }
+    .schedule-row.today { margin: 0 -18px; padding-left: 18px; padding-right: 18px; background: rgba(246,144,102,.12); }
+
+    .visit { background: var(--paper); }
+    .visit-card { display: grid; grid-template-columns: 1.05fr .95fr; overflow: hidden; border-radius: 20px; background: white; box-shadow: var(--shadow); }
+    .visit-card img { height: 100%; min-height: 520px; object-fit: cover; }
+    .visit-copy { padding: 58px; display: flex; flex-direction: column; justify-content: center; }
+    .visit-copy h2 { margin: 16px 0 18px; color: var(--green-950); font-family: var(--display); font-size: clamp(38px, 4vw, 56px); line-height: 1.04; letter-spacing: -.035em; }
+    address { color: var(--muted); font-style: normal; font-size: 17px; line-height: 1.65; }
+    .phone { display: inline-block; margin-top: 22px; color: var(--green-950); font-family: var(--display); font-size: 30px; }
+    .visit-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+    .faq-grid { max-width: 900px; margin: 0 auto; }
+    details { border-top: 1px solid var(--line); }
+    details:last-child { border-bottom: 1px solid var(--line); }
+    summary { padding: 24px 0; display: flex; justify-content: space-between; gap: 18px; cursor: pointer; list-style: none; color: var(--green-950); font-size: 18px; font-weight: 600; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--green-700); font-size: 24px; font-weight: 400; }
+    details[open] summary::after { content: "–"; }
+    details p { margin: 0 0 24px; color: var(--muted); line-height: 1.7; }
+
+    .cta { padding: 0 0 104px; }
+    .cta-box {
+      padding: 58px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 34px;
+      border-radius: 20px;
+      background: var(--coral);
+      color: var(--green-950);
+    }
+    .cta-box h2 { margin: 0; max-width: 760px; font-family: var(--display); font-size: clamp(40px, 5vw, 68px); line-height: 1; letter-spacing: -.04em; }
+    .cta-box p { margin: 15px 0 0; font-size: 16px; }
+
+    footer { padding: 42px 0; background: white; border-top: 1px solid var(--line); }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 34px; align-items: end; }
+    .footer-brand { color: var(--green-950); font-family: var(--display); font-size: 28px; font-weight: 700; }
+    .footer-meta { color: var(--muted); font-size: 12px; line-height: 1.7; text-align: right; }
+    .credits { margin-top: 12px; font-size: 10px; opacity: .75; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .nav-links, .nav > .btn { display: none; }
+      .mobile-toggle { display: block; }
+      .nav-links.open { display: flex; position: absolute; top: 78px; left: 0; right: 0; padding: 24px; flex-direction: column; background: var(--cream); border-bottom: 1px solid var(--line); }
+      .hero-grid, .hours-grid, .visit-card { grid-template-columns: 1fr; }
+      .hero-grid { gap: 38px; }
+      .hero-photo { min-height: 500px; }
+      .hero-photo img { min-height: 500px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .bento { grid-template-columns: 1fr 1fr; }
+      .tile.photo-large { grid-row: span 1; grid-column: span 2; }
+      .visit-card img { min-height: 430px; }
+      .cta-box { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(100% - 28px, 1200px); }
+      .section { padding: 78px 0; }
+      .topbar .container { justify-content: center; }
+      .topbar .container > span:first-child { display: none; }
+      .hero-grid { min-height: auto; padding: 54px 0 68px; }
+      .hero h1 { font-size: 48px; }
+      .hero-copy > p { font-size: 17px; }
+      .hero-meta { grid-template-columns: 1fr; }
+      .hero-photo, .hero-photo img { min-height: 410px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .trust-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .trust-item:last-child { border-bottom: 0; }
+      .bento { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+      .tile.photo-large { grid-column: span 1; }
+      .hours-grid { gap: 46px; }
+      .schedule-row { font-size: 14px; }
+      .visit-copy { padding: 34px 24px; }
+      .visit-card img { min-height: 330px; }
+      .cta-box { padding: 38px 24px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-meta { text-align: left; }
+      .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .btn { transition: none; }
+    }
+  </style>
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@type":"GroceryStore",
-    "name":"Mercado Cia do Lar",
-    "telephone":"+55 45 3027-2770",
-    "address":{"@type":"PostalAddress","streetAddress":"Avenida Silvio Américo Sasdelli, 1783, sala 02","addressLocality":"Foz do Iguaçu","addressRegion":"PR","addressCountry":"BR"},
-    "sameAs":["https://www.instagram.com/mercadociadolar/"]
+    "@context": "https://schema.org",
+    "@type": "GroceryStore",
+    "name": "Mercado Cia do Lar",
+    "telephone": "+55 45 3027-2770",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Avenida Silvio Américo Sasdelli, 1783, sala 02",
+      "addressLocality": "Foz do Iguaçu",
+      "addressRegion": "PR",
+      "addressCountry": "BR"
+    },
+    "sameAs": ["https://www.instagram.com/mercadociadolar/"]
   }
   </script>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <a class="skip" href="#conteudo">Pular para o conteúdo</a>
-  <div class="rail left">Vila A • Mercado de bairro • Foz do Iguaçu</div>
-  <div class="rail right">Cia do Lar • merceria • bebidas • conveniência</div>
-  <div class="shell">
-    <div class="topline">
-      <div class="container"><span>CIA / 2026 • Vila A • Foz do Iguaçu</span><span>Mercado de bairro • perto de casa</span><span class="live"><i class="dot"></i><b data-status>Consultando horário…</b></span></div>
+  <div class="topbar">
+    <div class="container">
+      <span>Mercado de bairro · Vila A · Foz do Iguaçu</span>
+      <span class="status" data-status>Consultando horário</span>
     </div>
-    <header>
-      <div class="container nav">
-        <a class="brand" href="#inicio"><span class="brand-mark"></span><span><strong>Cia do Lar</strong><small>Mercado • Vila A</small></span></a>
-        <nav class="menu" id="menu"><a href="#mercado">O mercado</a><a href="#categorias">Categorias</a><a href="#horarios">Horários</a><a href="#localizacao">Localização</a></nav>
-        <div class="nav-actions"><a class="call" href="tel:+554530272770">Ligar • (45) 3027-2770</a><button class="toggle" type="button" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false"><span></span><span></span></button></div>
-      </div>
-    </header>
-
-    <main id="conteudo">
-      <section class="hero" id="inicio">
-        <div class="container hero-grid">
-          <div>
-            <span class="eyebrow reveal">Mercado de bairro • Vila A</span>
-            <h1 class="reveal">Tudo o que o dia pede, <em>pertinho de casa</em><span class="coral">.</span></h1>
-            <p class="lead reveal">Merceria, bebidas e itens do dia a dia em um ponto prático da Avenida Silvio Américo Sasdelli.</p>
-            <div class="actions reveal"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=Mercado+Cia+do+Lar%2C+Avenida+Silvio+Americo+Sasdelli+1783%2C+Foz+do+Iguacu" target="_blank" rel="noreferrer">Traçar rota ↗</a><a class="btn ghost" href="tel:+554530272770">Ligar agora</a></div>
-            <div class="micro reveal"><span><b>01</b> 7 dias por semana</span><span><b>02</b> abre às 09h</span><span><b>03</b> Vila A</span></div>
-          </div>
-          <div class="collage reveal" aria-label="Composição gráfica inspirada em produtos de mercado">
-            <span class="shape sun"></span><span class="leaf one"></span><span class="leaf two"></span><span class="shape arch"></span><span class="shape bottle"></span><span class="shape bag"></span><span class="ticket">FIG. 01 / COMPRA PRÁTICA</span>
-          </div>
-        </div>
-      </section>
-
-      <div class="ticker"><div class="ticker-track"><span>Merceria <b>•</b> Bebidas <b>•</b> Itens do dia a dia <b>•</b> Vila A <b>•</b> Aberto todos os dias <b>•</b>&nbsp;</span><span>Merceria <b>•</b> Bebidas <b>•</b> Itens do dia a dia <b>•</b> Vila A <b>•</b> Aberto todos os dias <b>•</b>&nbsp;</span></div></div>
-
-      <section class="section" id="categorias">
-        <div class="container">
-          <div class="section-head"><div><span class="eyebrow reveal">Na prateleira • seleção diária</span><h2 class="reveal">O básico, o útil e o que <em>salva o dia</em><span class="coral">.</span></h2></div><p class="reveal">Uma seleção prática para compras rápidas. Para confirmar marcas ou disponibilidade, fale diretamente com a loja.</p></div>
-          <div class="categories">
-            <article class="category reveal"><small>CAT. 01</small><h3>Padaria & café</h3><p>Itens para começar ou acompanhar o dia.</p><div class="category-art"><span class="bread"></span></div></article>
-            <article class="category reveal"><small>CAT. 02</small><h3>Frutas & frescos</h3><p>Escolhas leves para a rotina da casa.</p><div class="category-art"><span class="fruit"></span></div></article>
-            <article class="category reveal"><small>CAT. 03</small><h3>Bebidas</h3><p>Opções geladas e para abastecer a despensa.</p><div class="category-art"><span class="can"></span></div></article>
-            <article class="category reveal"><small>CAT. 04</small><h3>Dia a dia</h3><p>Merceria, utilidades e itens de reposição.</p><div class="category-art"><span class="box"></span></div></article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="mercado">
-        <div class="container story-grid">
-          <div class="story-art reveal"><span class="circle"></span><div class="shelf"><span class="product"></span><span class="product"></span><span class="product"></span></div></div>
-          <div class="story-copy"><span class="eyebrow reveal">Cia do Lar • perto de você</span><h2 class="reveal">Um mercado feito para a <em>rotina real</em><span class="coral">.</span></h2><p class="reveal">A compra rápida antes de voltar para casa. O item que faltou no almoço. A bebida para o fim do dia. A Cia do Lar está na Vila A para resolver o cotidiano sem complicação.</p><div class="quote reveal">“Quando faltar alguma coisa, a solução está logo ali.”</div><a class="btn ghost reveal" href="https://www.instagram.com/mercadociadolar/" target="_blank" rel="noreferrer">Ver o Instagram ↗</a></div>
-        </div>
-      </section>
-
-      <section class="section hours" id="horarios">
-        <div class="container hours-grid">
-          <div><span class="eyebrow reveal">Horários • sete dias</span><h2 class="reveal">Quando passar por <em>aqui</em><span class="coral">.</span></h2><p class="reveal">Os horários abaixo foram organizados a partir de informações públicas. Em feriados, confirme por telefone antes de sair.</p><div class="status-card reveal"><div class="big-status" data-status>Consultando horário…</div><p data-status-detail>Horário local de Foz do Iguaçu.</p></div></div>
-          <div class="schedule reveal" data-schedule>
-            <div class="schedule-row" data-day="1"><span>Segunda-feira</span><strong>09:00 — 22:00</strong></div>
-            <div class="schedule-row" data-day="2"><span>Terça-feira</span><strong>09:00 — 22:00</strong></div>
-            <div class="schedule-row" data-day="3"><span>Quarta-feira</span><strong>09:00 — 22:00</strong></div>
-            <div class="schedule-row" data-day="4"><span>Quinta-feira</span><strong>09:00 — 22:00</strong></div>
-            <div class="schedule-row" data-day="5"><span>Sexta-feira</span><strong>09:00 — 22:30</strong></div>
-            <div class="schedule-row" data-day="6"><span>Sábado</span><strong>09:00 — 22:30</strong></div>
-            <div class="schedule-row" data-day="0"><span>Domingo</span><strong>09:00 — 22:00</strong></div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="localizacao">
-        <div class="container visit-grid reveal">
-          <div class="map" aria-label="Mapa ilustrativo da localização"><span class="road a"></span><span class="road b"></span><span class="block one"></span><span class="block two"></span><span class="block three"></span><span class="block four"></span><span class="pin"></span><span class="map-note">Mapa ilustrativo • abrir rota para navegar</span></div>
-          <div class="visit-copy"><span class="eyebrow">Endereço • Vila A</span><h2>É fácil chegar<span class="coral">.</span></h2><address class="address" data-address>Avenida Silvio Américo Sasdelli, 1783, sala 02<br>Vila A • Foz do Iguaçu — PR</address><a class="phone" href="tel:+554530272770">(45) 3027-2770</a><div class="actions"><a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=Mercado+Cia+do+Lar%2C+Avenida+Silvio+Americo+Sasdelli+1783%2C+Foz+do+Iguacu" target="_blank" rel="noreferrer">Abrir no mapa ↗</a><button class="btn ghost" type="button" data-copy>Copiar endereço</button></div><p aria-live="polite" data-copy-feedback></p></div>
-        </div>
-      </section>
-
-      <section class="section social">
-        <div class="container social-grid">
-          <div><span class="eyebrow reveal">Acompanhe • novidades</span><h2 class="reveal">Da loja direto para o seu <em>feed</em><span class="coral">.</span></h2><p class="lead reveal">Siga o perfil público da Cia do Lar para acompanhar novidades e informações da loja.</p><div class="actions reveal"><a class="btn primary" href="https://www.instagram.com/mercadociadolar/" target="_blank" rel="noreferrer">@mercadociadolar ↗</a></div></div>
-          <div class="social-cards reveal"><article class="social-card"><small>POST / 01</small><div class="social-icon"></div><strong>Novidades<br>da loja</strong></article><article class="social-card"><small>POST / 02</small><div class="social-icon"></div><strong>Reposição<br>da semana</strong></article><article class="social-card"><small>POST / 03</small><div class="social-icon"></div><strong>Achados<br>do dia</strong></article></div>
-        </div>
-      </section>
-
-      <section class="section faq">
-        <div class="container faq-grid"><div><span class="eyebrow reveal">Antes de ir • respostas rápidas</span><h2 class="reveal">O que você precisa <em>saber</em><span class="coral">.</span></h2></div><div><details class="reveal"><summary>A Cia do Lar abre aos domingos?</summary><p>Sim. O horário público informado para domingo é das 09:00 às 22:00.</p></details><details class="reveal"><summary>Como confirmar um produto antes de ir?</summary><p>Ligue para <a href="tel:+554530272770"><strong>(45) 3027-2770</strong></a> e confirme a disponibilidade diretamente com a loja.</p></details><details class="reveal"><summary>Onde acompanho as novidades?</summary><p>No Instagram público <a href="https://www.instagram.com/mercadociadolar/" target="_blank" rel="noreferrer"><strong>@mercadociadolar</strong></a>.</p></details></div></div>
-      </section>
-
-      <section class="final"><div class="container final-box reveal"><h2>Seu dia continua na <em>Cia do Lar</em><span>.</span></h2><div class="actions"><a class="btn primary" href="tel:+554530272770">Ligar agora</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Mercado+Cia+do+Lar%2C+Avenida+Silvio+Americo+Sasdelli+1783%2C+Foz+do+Iguacu" target="_blank" rel="noreferrer">Traçar rota ↗</a></div></div></section>
-    </main>
-
-    <footer><div class="container footer-grid"><a class="brand" href="#inicio"><span class="brand-mark"></span><span><strong>Mercado Cia do Lar</strong><small>Vila A • Foz do Iguaçu</small></span></a><div class="footer-meta">Avenida Silvio Américo Sasdelli, 1783 • sala 02<br>© <span data-year></span> Mercado Cia do Lar • site demonstrativo</div></div></footer>
   </div>
 
-  <script src="script.js" defer></script>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#inicio">Cia do <span>Lar</span></a>
+      <nav class="nav-links" id="nav-links" aria-label="Navegação principal">
+        <a href="#mercado">O mercado</a>
+        <a href="#categorias">Categorias</a>
+        <a href="#horarios">Horários</a>
+        <a href="#localizacao">Localização</a>
+      </nav>
+      <a class="btn primary" href="tel:+554530272770">Ligar agora</a>
+      <button class="mobile-toggle" id="mobile-toggle" type="button" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Mercado Cia do Lar · Vila A</span>
+          <h1>O mercado que deixa a rotina <em>mais simples</em>.</h1>
+          <p>Um ponto próximo para compras do dia a dia, reposições rápidas e aquela passada antes de voltar para casa.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=Mercado+Cia+do+Lar%2C+Avenida+Silvio+Americo+Sasdelli+1783%2C+Foz+do+Iguacu" target="_blank" rel="noreferrer">Traçar rota ↗</a>
+            <a class="btn secondary" href="https://www.instagram.com/mercadociadolar/" target="_blank" rel="noreferrer">Ver Instagram</a>
+          </div>
+          <div class="hero-meta">
+            <div class="meta-card"><strong>7 dias</strong><span>atendimento durante toda a semana</span></div>
+            <div class="meta-card"><strong>09h</strong><span>abertura informada todos os dias</span></div>
+            <div class="meta-card"><strong>Vila A</strong><span>na Av. Silvio Américo Sasdelli</span></div>
+          </div>
+        </div>
+
+        <figure class="hero-photo reveal">
+          <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=82" alt="Expositor real de verduras e legumes em um mercado" />
+          <figcaption class="photo-label"><strong>Fresco, prático e perto.</strong><span>Foto real · Unsplash</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Informações rápidas">
+      <div class="container trust-grid">
+        <article class="trust-item reveal"><b>Perto de casa</b><p>Uma parada simples para resolver a compra pequena sem atravessar a cidade.</p></article>
+        <article class="trust-item reveal"><b>Horário amplo</b><p>Atendimento informado até 22h, e até 22h30 às sextas e aos sábados.</p></article>
+        <article class="trust-item reveal"><b>Contato direto</b><p>Consulte a loja pelo telefone antes de sair para confirmar disponibilidade.</p></article>
+      </div>
+    </section>
+
+    <section class="section routine" id="mercado">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Mercado de bairro</span>
+          <h2>Feito para a rotina real da Vila A.</h2>
+          <p>A identidade visual do site segue o design system enviado: verde profundo, creme, coral, tipografia editorial e uma interface limpa — agora aplicada a um mercado, sem imagens simuladas ou vitrines inventadas.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature-card reveal"><span class="number">01</span><h3>Compra rápida</h3><p>Para a reposição do dia, o item esquecido e a passada antes de chegar em casa.</p></article>
+          <article class="feature-card reveal"><span class="number">02</span><h3>Presença local</h3><p>Um comércio da Vila A, com endereço e telefone claros para facilitar sua visita.</p></article>
+          <article class="feature-card reveal"><span class="number">03</span><h3>Informação direta</h3><p>Horários, localização e contato reunidos em um só lugar, sem complicação.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section categories" id="categorias">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="eyebrow">Para o dia a dia</span>
+          <h2>O que um bom mercado precisa transmitir.</h2>
+          <p>Frescor, conveniência, proximidade e uma experiência simples. As fotos abaixo são reais e servem apenas como referência visual de categorias de mercado.</p>
+        </div>
+        <div class="bento">
+          <article class="tile photo-large reveal">
+            <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1400&q=82" alt="Verduras, legumes e hortaliças organizados em um expositor de mercado" />
+            <div class="overlay"></div>
+            <div class="tile-copy"><small>Categoria visual</small><h3>Frescos e hortifruti</h3></div>
+          </article>
+          <article class="tile text green reveal"><small>Compra de bairro</small><div><h3>O essencial, sem perder tempo.</h3><p>Uma mensagem simples, própria para um mercado local e próximo.</p></div></article>
+          <article class="tile text coral reveal"><small>Contato</small><div><h3>Ligue antes de sair.</h3><p>Confirme produtos e horários diretamente com a loja.</p></div></article>
+          <article class="tile photo reveal">
+            <img src="https://images.unsplash.com/photo-1706520554216-9d62a0a00b60?auto=format&fit=crop&w=1100&q=82" alt="Pães artesanais reais expostos sobre uma mesa de mercado" />
+            <div class="overlay"></div>
+            <div class="tile-copy"><small>Categoria visual</small><h3>Padaria e café</h3></div>
+          </article>
+          <article class="tile text dark reveal"><small>Vila A</small><div><h3>Mercado perto de você.</h3><p>Av. Silvio Américo Sasdelli, 1783, sala 02.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section hours" id="horarios">
+      <div class="container hours-grid">
+        <div class="reveal">
+          <span class="eyebrow">Horários</span>
+          <h2>Aberto durante toda a semana.</h2>
+          <p class="hours-intro">Os horários abaixo foram organizados a partir das informações públicas disponíveis. Em feriados, confirme pelo telefone antes de sair.</p>
+          <div class="open-card"><strong data-status>Consultando horário</strong><span data-status-detail>Horário local de Foz do Iguaçu.</span></div>
+        </div>
+        <div class="schedule reveal">
+          <div class="schedule-row" data-day="1"><span>Segunda-feira</span><strong>09:00 — 22:00</strong></div>
+          <div class="schedule-row" data-day="2"><span>Terça-feira</span><strong>09:00 — 22:00</strong></div>
+          <div class="schedule-row" data-day="3"><span>Quarta-feira</span><strong>09:00 — 22:00</strong></div>
+          <div class="schedule-row" data-day="4"><span>Quinta-feira</span><strong>09:00 — 22:00</strong></div>
+          <div class="schedule-row" data-day="5"><span>Sexta-feira</span><strong>09:00 — 22:30</strong></div>
+          <div class="schedule-row" data-day="6"><span>Sábado</span><strong>09:00 — 22:30</strong></div>
+          <div class="schedule-row" data-day="0"><span>Domingo</span><strong>09:00 — 22:00</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section visit" id="localizacao">
+      <div class="container">
+        <article class="visit-card reveal">
+          <img src="https://images.unsplash.com/photo-1644015272264-2d70518c2046?auto=format&fit=crop&w=1400&q=82" alt="Exposição real de pães em uma loja" />
+          <div class="visit-copy">
+            <span class="eyebrow">Localização</span>
+            <h2>Bem no caminho da Vila A.</h2>
+            <address>Avenida Silvio Américo Sasdelli, 1783, sala 02<br />Vila A · Foz do Iguaçu — PR</address>
+            <a class="phone" href="tel:+554530272770">(45) 3027-2770</a>
+            <div class="visit-actions">
+              <a class="btn primary" href="https://www.google.com/maps/search/?api=1&query=Mercado+Cia+do+Lar%2C+Avenida+Silvio+Americo+Sasdelli+1783%2C+Foz+do+Iguacu" target="_blank" rel="noreferrer">Abrir no mapa ↗</a>
+              <button class="btn secondary" type="button" id="copy-address">Copiar endereço</button>
+            </div>
+            <p id="copy-feedback" aria-live="polite"></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container faq-grid">
+        <div class="section-head reveal">
+          <span class="eyebrow">Respostas rápidas</span>
+          <h2>Antes de ir ao mercado.</h2>
+        </div>
+        <details class="reveal"><summary>A Cia do Lar abre aos domingos?</summary><p>Sim. O horário público informado para domingo é das 09:00 às 22:00.</p></details>
+        <details class="reveal"><summary>Como confirmar se um produto está disponível?</summary><p>Ligue para <a href="tel:+554530272770"><strong>(45) 3027-2770</strong></a> e confirme diretamente com a loja.</p></details>
+        <details class="reveal"><summary>Onde acompanho as novidades?</summary><p>No Instagram público <a href="https://www.instagram.com/mercadociadolar/" target="_blank" rel="noreferrer"><strong>@mercadociadolar</strong></a>.</p></details>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box reveal">
+          <div><h2>Resolveu faltar? Passe na Cia do Lar.</h2><p>Vila A · Foz do Iguaçu · aberto todos os dias.</p></div>
+          <a class="btn primary" href="tel:+554530272770">Ligar agora</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div><div class="footer-brand">Mercado Cia do Lar</div><div class="credits">Fotos reais: nrd, rawkkim e Liming Wang / Unsplash.</div></div>
+      <div class="footer-meta">Avenida Silvio Américo Sasdelli, 1783, sala 02<br />© <span id="year"></span> Mercado Cia do Lar · Site demonstrativo</div>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('mobile-toggle');
+    const nav = document.getElementById('nav-links');
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.textContent = open ? '✕' : '☰';
+    });
+    nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = '☰';
+    }));
+
+    const dateParts = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Sao_Paulo', weekday: 'short', hour: '2-digit', minute: '2-digit', hour12: false
+    }).formatToParts(new Date());
+    const week = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+    const day = week[dateParts.find(part => part.type === 'weekday').value];
+    const hour = Number(dateParts.find(part => part.type === 'hour').value);
+    const minute = Number(dateParts.find(part => part.type === 'minute').value);
+    const current = hour * 60 + minute;
+    const close = day === 5 || day === 6 ? 22 * 60 + 30 : 22 * 60;
+    const isOpen = current >= 9 * 60 && current < close;
+    const statusText = isOpen ? `Aberto agora · até ${close === 1350 ? '22h30' : '22h'}` : current < 540 ? 'Abre hoje · às 09h' : 'Fechado agora · abre às 09h';
+    document.querySelectorAll('[data-status]').forEach(element => element.textContent = statusText);
+    document.querySelector('[data-status-detail]').textContent = isOpen ? 'Horário local de Foz do Iguaçu.' : 'Confirme alterações em feriados pelo telefone.';
+    document.querySelector(`[data-day="${day}"]`)?.classList.add('today');
+
+    document.getElementById('copy-address').addEventListener('click', async () => {
+      const address = 'Avenida Silvio Américo Sasdelli, 1783, sala 02, Vila A, Foz do Iguaçu — PR';
+      try {
+        await navigator.clipboard.writeText(address);
+        document.getElementById('copy-feedback').textContent = 'Endereço copiado.';
+      } catch {
+        document.getElementById('copy-feedback').textContent = address;
+      }
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    }), { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>
